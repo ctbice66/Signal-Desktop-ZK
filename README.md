@@ -1,9 +1,9 @@
 <!-- Copyright 2014-2020 Signal Messenger, LLC -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 
-# Signal Desktop
+# Signal Desktop with ZK Vault
 
-Signal Desktop is an Electron application that links with Signal
+Signal Desktop is an Electron application that links with Signal.  ZK Vault is a zero-knowledge password manager.
 
 ## Install, Build, and Run
 
