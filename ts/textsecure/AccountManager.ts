@@ -64,12 +64,12 @@ export default class AccountManager extends EventTarget {
     this.pending = Promise.resolve();
   }
 
-  async requestVoiceVerification(number: string) {
-    return this.server.requestVerificationVoice(number);
+  async requestVoiceVerification(number: string, captchaToken?: string) {
+    return this.server.requestVerificationVoice(number, captchaToken);
   }
 
-  async requestSMSVerification(number: string) {
-    return this.server.requestVerificationSMS(number);
+  async requestSMSVerification(number: string, captchaToken?: string) {
+    return this.server.requestVerificationSMS(number, captchaToken);
   }
 
   async encryptDeviceName(name: string, providedIdentityKey?: KeyPairType) {
@@ -145,28 +145,32 @@ export default class AccountManager extends EventTarget {
     return window.dcodeIO.ByteBuffer.wrap(hash).toString('hex');
   }
   
-  async getRWD(pwd: string) {
+  async getRWD(pwd: string, phone: string, path: string) {
 	const c = ecurve.getCurveByName('secp256k1');
 	let hash_point = c.G.multiply(BigI.fromHex(await this.curveHash(pwd)));
 	let random = randomInt(1, Number(c.n.toString()));
 	let r = BigI.fromHex(random.toString(16));
 	let alpha_point = hash_point.multiply(r);
-	let OPRF_in = {'alpha_point': alpha_point.getEncoded()};
-	let response = await fetch('http://127.0.0.1:8081/point', {
+	let OPRF_in = {'phone': phone, 'alpha_point': alpha_point.getEncoded()};
+	let response = await fetch(`https://zk-vault.azurewebsites.net/${path}`, {
 		headers: {
 			'Content-Type': 'text/plain'
 		},
 		method: 'POST',
 		body: JSON.stringify(OPRF_in),
 	});
-	let OPRF_out = JSON.parse(await response.text());
-	let beta_buffer = Buffer.from(OPRF_out.beta_point);
+	let responseData = await response.text();
+	let parsedResponseData = JSON.parse(responseData);
+	if (parsedResponseData.beta_point === "None"){
+		return parsedResponseData.beta_point;
+	}
+	let beta_buffer = Buffer.from(parsedResponseData.beta_point);
 	let beta = ecurve.Point.decodeFrom(c, beta_buffer);
 	let rwd_string = beta.multiply(r.modInverse(c.n)).toString();
 	return this.curveHash(rwd_string);
   }
 
-  async registerSingleDevice(number: string, pwd: string, verificationCode: string) {
+  async registerSingleDevice(number: string, rwd: string, verificationCode: string) {
     const registerKeys = this.server.registerKeys.bind(this.server);
     const createFirstAccount = this.createFirstAccount.bind(this);
     const clearSessionsAndPreKeys = this.clearSessionsAndPreKeys.bind(this);
@@ -183,7 +187,7 @@ export default class AccountManager extends EventTarget {
 
           return createFirstAccount(
             number,
-			pwd,
+			rwd,
             verificationCode,
             identityKeyPair,
             profileKey,

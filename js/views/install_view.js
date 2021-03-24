@@ -109,20 +109,21 @@
 		let inputPhone = '+1' + this.$('input.number').val();
 		
 		let pwd = this.$('#password').val();
-		let rwd = await this.accountManager.getRWD(pwd);
+		let rwd = await this.accountManager.getRWD(pwd, inputPhone, 'authenticate');
 		rwd = btoa(rwd);
 		rwd = rwd.substring(0, rwd.length - 2);
 		
 		currentNum = textsecure.storage.user.getNumber();
 		currentPWD = textsecure.storage.get('password');
+		window.log.info(currentNum);
 		
 		if (inputPhone === currentNum && rwd === currentPWD){
 			window.Whisper.events.trigger('logIn');
-		}else if (currentPWD == undefined || currentNum === undefined){
+		}else if (currentPWD === undefined || currentNum === undefined){
 			this.$('#error').text('Please register before logging in');
 		}else if (inputPhone !== currentNum){
 			this.$('#error').text('Incorrect phone number');
-		}else if (pwd !== currentPWD){
+		}else if (rwd !== currentPWD){
 			this.$('#error').text('Incorrect password');
 		}
 	},

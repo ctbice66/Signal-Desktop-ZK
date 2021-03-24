@@ -33,7 +33,7 @@ if (environment === 'production') {
 const config = require('config');
 
 config.environment = environment;
-config.enableHttp = process.env.SIGNAL_ENABLE_HTTP;
+config.enableHttp = true;
 
 // Log resulting env vars in use by config
 [

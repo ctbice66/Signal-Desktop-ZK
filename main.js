@@ -101,6 +101,12 @@ const { isSgnlHref, parseSgnlHref } = require('./ts/util/sgnlHref');
 
 let appStartInitialSpellcheckSetting = true;
 
+const defaultWebPrefs = {
+  devTools:
+    process.argv.some(arg => arg === '--enable-dev-tools') ||
+    config.environment !== 'production',
+};
+
 async function getSpellCheckSetting() {
   const json = await sql.getItemById('spell-check');
 
@@ -216,6 +222,13 @@ async function handleUrl(event, target) {
   event.preventDefault();
   const { protocol, hostname } = url.parse(target);
   const isDevServer = config.enableHttp && hostname === 'localhost';
+  if (target.startsWith(config.get('captchaScheme'))) {
+    if (captchaWindow) {
+      captchaWindow.close();
+    }
+    const token = target.slice(config.get('captchaScheme').length);
+    mainWindow.webContents.send('captcha-response', token);
+  }
   // We only want to specially handle urls that aren't requesting the dev server
   if ((protocol === 'http:' || protocol === 'https:') && !isDevServer) {
     try {
@@ -744,11 +757,10 @@ async function showStickerCreator() {
 
   stickerCreatorWindow.once('ready-to-show', () => {
     stickerCreatorWindow.show();
-	/*
     if (config.get('openDevTools')) {
       // Open the DevTools.
       stickerCreatorWindow.webContents.openDevTools();
-    }*/
+	}
   });
 }
 
@@ -856,6 +868,47 @@ function showPermissionsPopupWindow(forCalling, forCamera) {
     });
   });
 }
+
+let captchaWindow;
+function showCaptchaWindow() {
+  if (captchaWindow) {
+    captchaWindow.show();
+    return;
+  }
+
+  const options = {
+    resizable: false,
+    title: locale.messages.captchaResponseRequired.message,
+    autoHideMenuBar: true,
+    show: false,
+    webPreferences: {
+	  ...defaultWebPrefs,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      contextIsolation: false,
+      nativeWindowOpen: true,
+    },
+  };
+
+  captchaWindow = new BrowserWindow(options);
+
+  handleCommonWindowEvents(captchaWindow);
+
+  captchaWindow.loadURL(prepareURL([config.get('captchaUrl')]));
+  
+  captchaWindow.on('closed', () => {
+    captchaWindow = null;
+  });
+
+  captchaWindow.once('ready-to-show', () => {
+    captchaWindow.show();
+  });
+}
+
+// IPC call to load CAPTCHA
+ipc.on('captcha-required', () => {
+  showCaptchaWindow();
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

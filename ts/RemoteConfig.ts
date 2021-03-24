@@ -40,6 +40,7 @@ const listeners: ConfigListenersMapType = {};
 
 export async function initRemoteConfig(): Promise<void> {
   config = window.storage.get('remoteConfig') || {};
+  window.log.info(config);
   await maybeRefreshRemoteConfig();
 }
 

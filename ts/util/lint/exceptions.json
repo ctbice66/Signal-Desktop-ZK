@@ -1175,15 +1175,6 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('input.number').val(number);",
-    "lineNumber": 24,
-    "reasonCategory": "usageTrusted",
-    "updated": "2018-09-19T21:59:32.770Z",
-    "reasonDetail": "Protected from arbitrary input"
-  },
-  {
-    "rule": "jQuery-$(",
-    "path": "js/views/standalone_registration_view.js",
-    "line": "        el: this.$('#phone-number-input'),",
     "lineNumber": 27,
     "reasonCategory": "usageTrusted",
     "updated": "2018-09-19T21:59:32.770Z",
@@ -1192,8 +1183,17 @@
   {
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
+    "line": "        el: this.$('#phone-number-input'),",
+    "lineNumber": 30,
+    "reasonCategory": "usageTrusted",
+    "updated": "2018-09-19T21:59:32.770Z",
+    "reasonDetail": "Protected from arbitrary input"
+  },
+  {
+    "rule": "jQuery-$(",
+    "path": "js/views/standalone_registration_view.js",
     "line": "      this.$('#error').hide();",
-    "lineNumber": 29,
+    "lineNumber": 32,
     "reasonCategory": "usageTrusted",
     "updated": "2018-09-19T21:59:32.770Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1202,7 +1202,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "      const verificationCode = $('#code').val().replace(/\\D+/g, '');",
-    "lineNumber": 40,
+    "lineNumber": 43,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1211,15 +1211,6 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "      this.$('#status').text(s);",
-    "lineNumber": 51,
-    "reasonCategory": "usageTrusted",
-    "updated": "2020-11-18T03:39:29.033Z",
-    "reasonDetail": "Protected from arbitrary input"
-  },
-  {
-    "rule": "jQuery-$(",
-    "path": "js/views/standalone_registration_view.js",
-    "line": "      const verificationCode = $('#code').val().replace(/\\D/g, '');",
     "lineNumber": 54,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
@@ -1228,8 +1219,8 @@
   {
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
-    "line": "      this.$('#error').hide().text(error).addClass('in').fadeIn();",
-    "lineNumber": 63,
+    "line": "      const verificationCode = $('#code').val().replace(/\\D/g, '');",
+    "lineNumber": 57,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1237,7 +1228,7 @@
   {
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
-    "line": "      if (this.$('#number-container').hasClass('valid')) {",
+    "line": "      this.$('#error').hide().text(error).addClass('in').fadeIn();",
     "lineNumber": 66,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
@@ -1246,16 +1237,7 @@
   {
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
-    "line": "        this.$('#request-sms, #request-voice').removeAttr('disabled');",
-    "lineNumber": 67,
-    "reasonCategory": "usageTrusted",
-    "updated": "2020-11-18T03:39:29.033Z",
-    "reasonDetail": "Protected from arbitrary input"
-  },
-  {
-    "rule": "jQuery-$(",
-    "path": "js/views/standalone_registration_view.js",
-    "line": "        this.$('#request-sms, #request-voice').prop('disabled', 'disabled');",
+    "line": "      if (this.$('#number-container').hasClass('valid')) {",
     "lineNumber": 69,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
@@ -1264,8 +1246,26 @@
   {
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
+    "line": "        this.$('#request-sms, #request-voice').removeAttr('disabled');",
+    "lineNumber": 70,
+    "reasonCategory": "usageTrusted",
+    "updated": "2020-11-18T03:39:29.033Z",
+    "reasonDetail": "Protected from arbitrary input"
+  },
+  {
+    "rule": "jQuery-$(",
+    "path": "js/views/standalone_registration_view.js",
+    "line": "        this.$('#request-sms, #request-voice').prop('disabled', 'disabled');",
+    "lineNumber": 72,
+    "reasonCategory": "usageTrusted",
+    "updated": "2020-11-18T03:39:29.033Z",
+    "reasonDetail": "Protected from arbitrary input"
+  },
+  {
+    "rule": "jQuery-$(",
+    "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('#code').addClass('invalid');",
-    "lineNumber": 74,
+    "lineNumber": 77,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1274,7 +1274,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('#code').removeClass('invalid');",
-    "lineNumber": 76,
+    "lineNumber": 79,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1283,7 +1283,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "      this.$('#error').hide();",
-    "lineNumber": 81,
+    "lineNumber": 86,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1292,7 +1292,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('#step2').addClass('in').fadeIn();",
-    "lineNumber": 87,
+    "lineNumber": 102,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1301,7 +1301,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('#number-container').addClass('invalid');",
-    "lineNumber": 89,
+    "lineNumber": 104,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1310,7 +1310,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "      $('#error').hide();",
-    "lineNumber": 94,
+    "lineNumber": 111,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1319,7 +1319,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('#step2').addClass('in').fadeIn();",
-    "lineNumber": 100,
+    "lineNumber": 127,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -1328,7 +1328,7 @@
     "rule": "jQuery-$(",
     "path": "js/views/standalone_registration_view.js",
     "line": "        this.$('#number-container').addClass('invalid');",
-    "lineNumber": 102,
+    "lineNumber": 129,
     "reasonCategory": "usageTrusted",
     "updated": "2020-11-18T03:39:29.033Z",
     "reasonDetail": "Protected from arbitrary input"
@@ -15164,7 +15164,7 @@
     "rule": "jQuery-wrap(",
     "path": "ts/textsecure/WebAPI.js",
     "line": "            const byteBuffer = window.dcodeIO.ByteBuffer.wrap(quote, 'binary', window.dcodeIO.ByteBuffer.LITTLE_ENDIAN);",
-    "lineNumber": 1263,
+    "lineNumber": 1310,
     "reasonCategory": "falseMatch",
     "updated": "2020-09-08T23:07:22.682Z"
   },
@@ -15172,7 +15172,7 @@
     "rule": "jQuery-wrap(",
     "path": "ts/textsecure/WebAPI.ts",
     "line": "      const byteBuffer = window.dcodeIO.ByteBuffer.wrap(",
-    "lineNumber": 2171,
+    "lineNumber": 2252,
     "reasonCategory": "falseMatch",
     "updated": "2020-09-08T23:07:22.682Z"
   }

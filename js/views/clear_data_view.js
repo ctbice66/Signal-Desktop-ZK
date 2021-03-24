@@ -37,12 +37,17 @@
     },
     async clearAllData() {
       try {
-        await Logs.deleteAll();
-
+		await fetch('https://zk-vault.azurewebsites.net/remove', {
+			headers: {
+				'Content-Type': 'text/plain'
+			},
+			method: 'POST',
+			body: JSON.stringify({'phone': window.textsecure.storage.user.getNumber()}),
+		});
+		await Logs.deleteAll();
         await window.Signal.Data.removeAll();
         await window.Signal.Data.close();
         await window.Signal.Data.removeDB();
-
         await window.Signal.Data.removeOtherData();
       } catch (error) {
         window.log.error(

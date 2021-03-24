@@ -94,6 +94,7 @@ declare global {
     baseAttachmentsPath: string;
     baseStickersPath: string;
     baseTempPath: string;
+	captchaRequired: () => void;
     dcodeIO: DCodeIOType;
     enterKeyboardMode: () => void;
     enterMouseMode: () => void;
